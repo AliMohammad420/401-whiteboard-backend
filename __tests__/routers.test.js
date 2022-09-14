@@ -29,7 +29,7 @@ it('Create a post', async () => {
 
 describe('Test Post put route', () => {
     it('Update a post', async () => {
-        const res =  await request.put('/post/7').send({
+        const res =  await request.put('/post/3').send({
             title: 'new title new',
             content: 'new content new'
         });
@@ -40,7 +40,7 @@ describe('Test Post put route', () => {
 
 describe('Test Post delete route', () => {
     it('Delete a post', async () => {
-        const res = await request.delete('/post/16');
+        const res = await request.delete('/post/17');
         expect(res.status).toEqual(204);
         expect(res.text).toEqual('');
     });
