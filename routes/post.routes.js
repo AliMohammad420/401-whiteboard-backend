@@ -1,59 +1,61 @@
 'use strict';
 
-const express = require('express');
+const express = require( 'express' );
 const router = express.Router();
-const { Post } = require('../models/index');
+const { Post, CommentModel } = require( '../models/index' );
 
-router.get( '/post', getAllPost );
-router.post( '/post', addPost );
+
+
+router.get( '/post', getAllPosts );
 router.get( '/post/:id', getOnePost );
+router.post( '/post', newPost );
 router.put( '/post/:id', updatePost );
 router.delete( '/post/:id', deletePost );
 
 
-async function getAllPost (req, res) {
-    let message = await Post.findAll();
-    res.status(200).json({
-        message
-    });
+
+
+async function getAllPosts (req, res) {
+    let messages = await Post.readWithComments(CommentModel);
+    res.status(200).json( {
+        messages
+    } );
 }
-
-
-async function addPost (req, res) {
-    let newMessage = req.body;
-    let message = await Post.create(newMessage);
-    res.status(201).json(message);
-}
-
 
 
 async function getOnePost (req, res) {
     const id = req.params.id;
-    const message = await Post.findOne( {
-        where: {id: id}
-    } );
-    res.status(200).json(message);
+    const messages = await Post.readOneWithComments(id, CommentModel);
+    res.status(200).json(messages);
+}
+
+
+async function newPost (req, res) {
+    const newPost = req.body;
+    await Post.create(newPost)
+        .then( async () => {
+            await Post.read()
+                .then( (messages) => {
+                    res.status(200).json(messages);
+                } );
+        } );
 }
 
 
 async function updatePost (req, res) {
     const id = req.params.id;
     const obj = req.body;
-    let message = await Post.findOne( {
-        where: {id: id}
-    } );
-    const updateMessage = await message.update(obj);
-    res.status(200).json(updateMessage);
+    const messages = await Post.update(id, obj);
+    res.status(201).json(messages);
 }
+
 
 async function deletePost (req, res) {
     const id = req.params.id;
-    await Post.destroy({
-        where: { id: id }
-    });
-    res.status(200).send("Message Deleted")
+    await Post.delete(id).then( () => {
+        res.status(204).send('');
+    } );
 }
-
 
 
 

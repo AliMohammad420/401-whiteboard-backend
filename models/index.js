@@ -28,9 +28,8 @@ const commentCollection =new collection(commentModel);
 
 module.exports = {
     db: sequelize,
-    Post: postModel,
-    CommentModel: commentModel,
     Post: postCollection,
-    Comment: commentCollection
+    Comment: commentCollection,
+    CommentModel: commentModel
 };
 
