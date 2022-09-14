@@ -5,7 +5,7 @@ const cors = require( 'cors' );
 const app = express();
 const notFoundHandler = require( './error-handlers/404' );
 const errorHandler = require( './error-handlers/500' );
-const postRouter = require( './routes/post.route' );
+const postRouter = require( './routes/post.routes' );
 
 app.use( cors() );
 app.use( express.json() );
