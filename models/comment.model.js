@@ -6,9 +6,7 @@ const Comment = ( sequelize, DataTypes ) => sequelize.define( 'Comment', {
         allowNull: false
     },
     content: {
-        type: DataTypes.STRING,
-        defaultValue: 'comment'
-    }
+        type: DataTypes.STRING    }
 } );
 
 module.exports = Comment;
