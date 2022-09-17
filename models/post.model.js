@@ -3,8 +3,7 @@
 const Post = ( sequelize, DataTypes ) => sequelize.define( 'Post', {
     title: {
         type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 'Hello'
+        allowNull: false
     },
     content: {
         type: DataTypes.STRING,
