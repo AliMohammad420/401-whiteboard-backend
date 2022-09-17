@@ -8,7 +8,7 @@ const { Post, CommentModel } = require( '../models/index' );
 
 router.get( '/post', getAllPosts );
 router.get( '/post/:id', getOnePost );
-router.post( '/post', newPost );
+router.post( '/post', createPost );
 router.put( '/post/:id', updatePost );
 router.delete( '/post/:id', deletePost );
 
@@ -30,15 +30,11 @@ async function getOnePost (req, res) {
 }
 
 
-async function newPost (req, res) {
+async function createPost(req, res) {
     const newPost = req.body;
-    await Post.create(newPost)
-        .then( async () => {
-            await Post.read()
-                .then( (messages) => {
-                    res.status(200).json(messages);
-                } );
-        } );
+    const post =  await Post.create(newPost);
+    res.status(200).json(post);     
+
 }
 
 
