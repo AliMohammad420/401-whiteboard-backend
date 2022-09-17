@@ -7,10 +7,8 @@ const Post = ( sequelize, DataTypes ) => sequelize.define( 'Post', {
     },
     content: {
         type: DataTypes.STRING,
-        defaultValue: "Welcome"
+        defaultValue: 'testing'
     }
 } );
 
 module.exports = Post;
-
-
