@@ -1,22 +1,22 @@
 'use strict';
 
-const express = require( 'express' );
-const cors = require( 'cors' );
+const express = require('express');
+const cors = require('cors');
 const app = express();
-const NotFound = require( './error-handlers/404' );
-const serverNotfound = require( './error-handlers/500' );
-const postRouter = require( './routes/post.route' );
-const commentRoute = require( './routes/comment-route' );
-const postRoute = require( './routes/post.route' );
+const NotFound = require('./error-handlers/404');
+const serverNotfound = require('./error-handlers/500');
+const commentRoute = require('./routes/comment.route');
+const postRoute = require('./routes/post.route');
+const user = require('./routes/user.route');
 
 app.use(cors());
 app.use(express.json());
-app.use(postRouter);
 app.use(NotFound);
-
 app.use(serverNotfound);
-app.use(commentRoute);
+
 app.use(postRoute);
+app.use(commentRoute);
+app.use(user);
 
 app.get( '/', ( req, res ) => {
     res.status( 200 ).json( {
@@ -28,7 +28,7 @@ app.get( '/', ( req, res ) => {
 function start ( port ) {
     app.listen( port, () => console.log( `Working on ${port}` ) );
 }
-
+  
 module.exports = {
     start,
     app
