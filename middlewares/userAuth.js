@@ -20,6 +20,7 @@ const saveUser = async (req, res, next) => {
     });
 
     if(email) {
+
       return res.status(409).send('Email already taken')
     }
     next();
