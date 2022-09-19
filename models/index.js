@@ -15,9 +15,12 @@ const sequelizeOption = {
     }
 };
 
+
 let sequelize = new Sequelize( POSTGRES_URL, sequelizeOption );
 const postModel = post(sequelize, DataTypes);
 const commentModel = comment(sequelize,DataTypes);
+const userModel = user(sequelize, DataTypes);
+
 
 postModel.hasMany(commentModel, {foreignKey: 'postID', sourceKey: 'id'})
 commentModel.belongsTo(postModel, {foreignKey: 'postID', targetKey: 'id'})
@@ -26,10 +29,11 @@ const postCollection = new collection(postModel);
 const commentCollection =new collection(commentModel);
 
 
-
 module.exports = {
     db: sequelize,
     Post: postCollection,
+    Post: postModel,
     Comment: commentCollection,
-    CommentModel: commentModel
+    CommentModel: commentModel,
+    UserModel: userModel
 };

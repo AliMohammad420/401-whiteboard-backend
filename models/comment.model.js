@@ -1,7 +1,7 @@
 'use strict';
 
 const Comment = ( sequelize, DataTypes ) => sequelize.define( 'Comment', {
-    ownerID: {
+    postID: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
