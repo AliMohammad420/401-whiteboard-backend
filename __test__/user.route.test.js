@@ -19,7 +19,7 @@ describe('Test User signup route', () => {
         const res = await request.post('/signup').send( {
             username: 'ali',
             email: 'ali@ali.com',
-            password: '1234'
+            password: '123'
         } );
         expect(res.status).toEqual(409);
     } );
