@@ -1,22 +1,25 @@
 'use strict';
 
-const express = require('express');
-const cors = require('cors');
+const express = require( 'express' );
+const cors = require( 'cors' );
 const app = express();
-const NotFound = require('./error-handlers/404');
-const serverNotfound = require('./error-handlers/500');
-const commentRoute = require('./routes/comment.route');
-const postRoute = require('./routes/post.route');
-const user = require('./routes/user.route');
+const NotFound = require( './error-handlers/404' );
+const error = require( './error-handlers/500' );
+const postRouter = require( './routes/post.route' );
+const commentRoute = require( './routes/comment-route' );
+const postRoute = require( './routes/post.route' );
+const userRoute = require('./routes/user.route');
 
-app.use(cors());
-app.use(express.json());
-app.use(NotFound);
-app.use(serverNotfound);
 
-app.use(postRoute);
+app.use( cors() );
+app.use( express.json() );
+app.use( postRouter );
+app.use( NotFound );
+app.use( error );
 app.use(commentRoute);
-app.use(user);
+app.use(postRoute);
+app.use( userRoute );
+
 
 app.get( '/', ( req, res ) => {
     res.status( 200 ).json( {
@@ -25,11 +28,13 @@ app.get( '/', ( req, res ) => {
     } );
 } );
 
+/* istanbul ignore next */
+
 function start ( port ) {
     app.listen( port, () => console.log( `Working on ${port}` ) );
 }
-  
 module.exports = {
     start,
     app
+    
 };

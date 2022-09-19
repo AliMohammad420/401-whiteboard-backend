@@ -4,7 +4,6 @@ class userCommentRoutes {
     constructor ( model ) {
         this.model = model;
     }
-
     async create ( obj ) {
         try {
             return await this.model.create( obj );
