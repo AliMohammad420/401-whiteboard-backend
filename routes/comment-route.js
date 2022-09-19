@@ -18,10 +18,11 @@ async function getAllComments ( req, res ) {
         comments
     } );
 }
+
 async function addComment ( req, res ) {
     const postId = req.params.id;
     const content = req.body.content;
-    const obj = {'postID': postId ,'content': content};
+    const obj = {'ownerID': postId ,'content': content};
     await Comment.create( obj )
         .then( async () => {
             await Comment.read()
@@ -37,6 +38,7 @@ async function updateComment ( req, res ) {
     const comment = await Comment.update( id,obj );
     res.status( 201 ).json( comment );
 }
+
 async function deleteComment ( req, res ) {
     const id = req.params.id;
     await Comment.delete( id ).then( () => {
