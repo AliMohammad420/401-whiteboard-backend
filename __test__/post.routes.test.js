@@ -7,8 +7,8 @@ jest.setTimeout( 10000 );
 
 describe( 'Test Post get routes', () => {
     it( 'Get all posts', async () => {
-        const res = await request.get( '/post' );
-        expect( res.status ).toEqual( 200 );
+        const response = await request.get( '/post' );
+        expect( response.status ).toEqual( 200 );
     } );
     it( 'Get one post', async () => {
         const res = await request.get( '/post/1' );
