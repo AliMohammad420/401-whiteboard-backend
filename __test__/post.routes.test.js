@@ -10,10 +10,6 @@ describe( 'Test Post get routes', () => {
         const response = await request.get( '/post' );
         expect( response.status ).toEqual( 200 );
     } );
-    it( 'Get one post', async () => {
-        const res = await request.get( '/post/1' );
-        expect( res.status ).toEqual( 200 );
-    } );
 } );
 
 describe( 'Test Post post route', () => {

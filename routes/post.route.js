@@ -2,9 +2,10 @@
 
 const express = require( 'express' );
 const router = express.Router();
-const { Post, CommentModel, postModel, UserModel } = require( '../models/index' );
+const { Post, CommentModel } = require( '../models/index' );
+const bearerAuth = require( '../middlewares/bearerAuth' );
 
-router.get( '/post', getAllPosts );
+router.get( '/post', bearerAuth ,getAllPosts );
 router.get( '/post/:id', getOnePost );
 router.post( '/post', newPost );
 router.put( '/post/:id', updatePost );
@@ -14,12 +15,7 @@ router.delete( '/post/:id', deletePost );
 
 
 async function getAllPosts ( req, res ) {
-    const comments = await CommentModel.findAll({include: [ UserModel ]});
-    let posts = await postModel.findAll({include: [ UserModel ]});
-    posts = posts.map( post => {
-        post.dataValues.comments = comments.filter( comment => comment.postID === post.id );
-        return post;
-    } );
+    let posts = await Post.readWithComments( CommentModel );
     res.status( 200 ).json( {
         posts
     } );
@@ -27,9 +23,7 @@ async function getAllPosts ( req, res ) {
 
 async function getOnePost ( req, res ) {
     const id = req.params.id;
-    const comments = await CommentModel.findAll({where: {postID: id}, include: [ userModel ]});
-    let post = await postModel.findOne({where: {id: id}, include: [ UserModel ]});
-    post.dataValues.comments = comments;
+    const post = await Post.readOneWithComments( id, CommentModel );
     res.status( 200 ).json( post );
 }
 
