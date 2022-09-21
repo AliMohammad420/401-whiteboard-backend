@@ -8,6 +8,10 @@ const Post = ( sequelize, DataTypes ) => sequelize.define( 'Post', {
     content: {
         type: DataTypes.STRING,
         defaultValue: 'test worked'
+    },
+    userID:{
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 } );
 

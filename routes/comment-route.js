@@ -22,7 +22,9 @@ async function getAllComments ( req, res ) {
 async function addComment ( req, res ) {
     const postId = req.params.id;
     const content = req.body.content;
-    const obj = {'ownerID': postId ,'content': content};
+    const userID = req.params.userID;
+    const obj = {'ownerID': postId ,'content': content, 'userID': userID};
+
     await Comment.create( obj )
         .then( async () => {
             await Comment.read()
