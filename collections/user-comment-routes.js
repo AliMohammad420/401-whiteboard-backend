@@ -24,7 +24,7 @@ class userCommentRoutes {
         }
       }
     
-      async readSpecificComment(postID, userID) {
+      async readByPostID(postID, userID) {
         try {
           return await this.model.findAll({ where: { postID: postID, userID: userID } });
         } catch (e) {
