@@ -23,7 +23,7 @@ async function getAllPosts ( req, res ) {
 
 async function getOnePost ( req, res ) {
     const id = req.params.id;
-    const post = await Post.readOneWithComments( id, CommentModel );
+    const post = await Post.readWithComments( id, CommentModel );
     res.status( 200 ).json( post );
 }
 
