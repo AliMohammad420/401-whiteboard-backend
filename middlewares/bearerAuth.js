@@ -1,6 +1,6 @@
 'use strict';
 
-const { userModel } = require( "../models" );
+const { UserModel } = require( "../models" );
 
 module.exports = async (req, res, next) => {
     if ( !req.headers.authorization ) {
@@ -8,8 +8,8 @@ module.exports = async (req, res, next) => {
     } else {
         const token = req.headers.authorization.split(' ').pop();
         try {
-            const validUser = await userModel.authenticateToken(token);
-            const user = await userModel.findOne( {
+            const validUser = await UserModel.authenticateToken(token);
+            const user = await UserModel.findOne( {
                 where: {
                     username: validUser.username
                 }
