@@ -28,7 +28,6 @@ app.get( '/', ( req, res ) => {
     } );
 } );
 
-/* istanbul ignore next */
 
 function start ( port ) {
     app.listen( port, () => console.log( `Working on ${port}` ) );
