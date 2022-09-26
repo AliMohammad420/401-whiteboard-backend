@@ -4,12 +4,13 @@ const express = require( 'express' );
 const router = express.Router();
 const { Post, CommentModel } = require( '../models/index' );
 const bearerAuth = require( '../middlewares/bearerAuth' );
+const role = require( '../middlewares/role' );
 
-router.get( '/post', bearerAuth ,getAllPosts );
-router.get( '/post/:id', getOnePost );
-router.post( '/post', newPost );
-router.put( '/post/:id', updatePost );
-router.delete( '/post/:id', deletePost );
+router.get( '/post', bearerAuth, role('read') ,getAllPosts );
+router.get( '/post/:id', role('read'),getOnePost );
+router.post( '/post', role('create'),newPost );
+router.put( '/post/:id', role('update'), updatePost );
+router.delete( '/post/:id', role('delete'),deletePost );
 
 
 
