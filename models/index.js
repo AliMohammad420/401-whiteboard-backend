@@ -37,7 +37,6 @@ const commentCollection =new collection(commentModel);
 const userCollection = new collection(userModel);
 
 
-
 module.exports = {
     db: sequelize,
     Post: postCollection,
