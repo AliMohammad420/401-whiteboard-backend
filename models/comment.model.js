@@ -1,7 +1,7 @@
 'use strict';
 
-const Comment = ( sequelize, DataTypes ) => sequelize.define( 'Comment', {
-    ownerID: {
+module.exports = ( sequelize, DataTypes ) => sequelize.define( 'Comment', {
+    userID: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -14,5 +14,3 @@ const Comment = ( sequelize, DataTypes ) => sequelize.define( 'Comment', {
         allowNull: false
     }
 } );
-
-module.exports = Comment;

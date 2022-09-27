@@ -1,15 +1,15 @@
 'use strict';
 
-const { UserModel } = require( "../models/index" );
+const { userModel } = require( "../models/index" );
 
 module.exports = async ( req, res, next ) => {
     if ( !req.headers.authorization ) {
-        next( 'Invalid Login' );
+        res.status(401).send( 'Invalid Login' );
     } else {
         const token = req.headers.authorization.split( ' ' ).pop();
         try {
-            const validUser = await UserModel.authenticateToken( token );
-            const user = await UserModel.findOne( {
+            const validUser = await userModel.authenticateToken( token );
+            const user = await userModel.findOne( {
                 where: {
                     username: validUser.username
                 }
@@ -19,10 +19,10 @@ module.exports = async ( req, res, next ) => {
                 req.token = user.token;
                 next();
             } else {
-                next( 'Invalid Login' );
+                res.status(401).send( 'Invalid Login' );
             }
         } catch ( error ) {
-            next( error );
+            res.status(401).send( error );;
         } 
     }
 }

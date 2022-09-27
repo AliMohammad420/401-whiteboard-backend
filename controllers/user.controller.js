@@ -1,25 +1,37 @@
 'use strict';
 const bcrypt = require( 'bcrypt' );
 const base64 = require( 'base-64' );
-const { UserModel } = require( '../models/index' );
+const { commentModel, postModel, userModel } = require( '../models/index' );
 
 const signup = async ( req, res ) => {
     try {
-        req.body.password = await bcrypt.hash( req.body.password, 10 );
-        const user = await UserModel.create( req.body );
+        const { username, email, password, role } = req.body;
         const output = {
-            user: user,
-            token: user.token,
-            role: user.role
+            username,
+            email,
+            password: await bcrypt.hash( password, 10 ),
+            role
         };
-        res.status( 201 ).json( output );
+        const user = await userModel.create( output );
+        if ( user ) {
+            res.status( 200 ).json( {
+                "user": {
+                    "username": user.username,
+                    "id": user.id,
+                    "role": user.role
+                },
+                "token": user.token
+            } );
+        } else {
+            res.status( 500 ).send( 'Error Creating User' );
+        }
     } catch ( error ) {
-        res.status( 403 ).send( 'Error Creating User' );
+        console.log( error );
     }
 };
 
 const allUser = async ( req, res ) => {
-    const users = await UserModel.findAll();
+    const users = await userModel.findAll();
     res.status( 200 ).json( users );
 };
 
@@ -28,17 +40,16 @@ const login = async ( req, res ) => {
     const encodedValue = basicHeader.pop();
     const decodedValue = base64.decode( encodedValue );
     const [ username, password ] = decodedValue.split( ':' );
-    console.log( username, password );
-    const user = await UserModel.findOne( {
+    const user = await userModel.findOne( {
         where: {
             username: username
-                }
+        }
     } );
     if ( user ) {
         const isSame = await bcrypt.compare( password, user.password );
         if ( isSame ) {
             return res.status( 200 ).json( {
-                "User": {
+                "user": {
                     "username": user.username,
                     "id": user.id,
                     "role": user.role
@@ -52,9 +63,6 @@ const login = async ( req, res ) => {
         return res.status( 401 ).send( 'You are not authorized' );
     }
 };
-
-  
-
 
 
 module.exports = {

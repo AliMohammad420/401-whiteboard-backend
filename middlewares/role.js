@@ -1,17 +1,15 @@
 'use strict';
 
 const role = (capability) => {
-    return (req, res, next) => {
-        try {
-        if (req.user.capabilities.includes(capability)) {
-            next();
+    return function(req,res,next){
+        if(!req.user.capabilities.includes(capability)){
+            res.status(401).json({
+                message: 'access denied'
+            })
         } else {
-            next('Access Denied');
+            next()
         }
-        } catch (e) {
-        next('Invalid Login');
-        }
-    };
     }
+}
 
-module.exports = role;
+module.exports = role
