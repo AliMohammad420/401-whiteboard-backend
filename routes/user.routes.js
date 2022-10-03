@@ -1,5 +1,5 @@
 'use strict';
-import cors from 'cors';
+const cors = require( 'cors' );
 const { signup, allUser, login } = require( '../controllers/user.controller' );
 const bearerAuth = require( '../middlewares/bearerAuth' );
 const {saveUser} = require( '../middlewares/userAuth' );
