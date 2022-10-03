@@ -9,11 +9,12 @@ const postRouter = require( './routes/post.routes' );
 const commentRouter = require( './routes/comment.routes' );
 const userRouter = require( './routes/user.routes' );
 
-app.use( cors() );
+
 app.use( express.json() );
 app.use( postRouter );
 app.use( commentRouter );
 app.use( userRouter );
+app.use( cors() );
 
 app.get( '/', ( req, res ) => {
     res.status( 200 ).json( {
