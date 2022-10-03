@@ -9,7 +9,7 @@ const postRouter = require( './routes/post.routes' );
 const commentRouter = require( './routes/comment.routes' );
 const userRouter = require( './routes/user.routes' );
 
-app.use( cors() );
+app.use( cors({ origin : '*' }) );
 app.use( express.json() );
 app.use( postRouter );
 app.use( commentRouter );
