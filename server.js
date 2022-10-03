@@ -10,7 +10,8 @@ const commentRouter = require( './routes/comment.routes' );
 const userRouter = require( './routes/user.routes' );
 
 app.use(cors({
-    origin:'*'
+    origin:'https://splendid-sunflower-b4ab3e.netlify.app'
+    
 }));
 app.use( express.json() );
 app.use( postRouter );
