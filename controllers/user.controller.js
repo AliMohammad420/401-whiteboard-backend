@@ -2,7 +2,6 @@
 const bcrypt = require( 'bcrypt' );
 const base64 = require( 'base-64' );
 const { commentModel, postModel, userModel } = require( '../models/index' );
-
 const signup = async ( req, res ) => {
     try {
         const { username, email, password, role } = req.body;

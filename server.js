@@ -10,9 +10,6 @@ const commentRouter = require( './routes/comment.routes' );
 const userRouter = require( './routes/user.routes' );
 
 app.use( cors() );
-postRouter.use( cors() );
-userRouter.use( cors() );
-commentRouter.use( cors() );
 app.use( express.json() );
 app.use( postRouter );
 app.use( commentRouter );
