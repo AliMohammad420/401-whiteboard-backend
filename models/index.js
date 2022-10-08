@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require( 'sequelize' );
 const post = require( './post.model' );
 const comment = require( './comment.model' );
 const user = require( './user.model' );
-const POSTGRES_URL = process.env.DATABASE_URL || "postgres://hoagnjlxpglipl:546e7e4ba56b57b25f9bd074b192b7c0f571cc258b44911f6f04374a844a30aa@ec2-52-210-97-223.eu-west-1.compute.amazonaws.com:5432/drrmc4j9kthha";
+const POSTGRES_URL = process.env.DATABASE_URL || "postgres://bnosilwrqdobgz:bbfae220d495029d00f3d55b6c37ccc59ec76d54b887eeb0ee985ae723fb3a61@ec2-52-208-164-5.eu-west-1.compute.amazonaws.com:5432/d4t298q5hgebnn";
 const collection = require( '../collections/user-comment-routes' );
 
 const sequelizeOption = {
